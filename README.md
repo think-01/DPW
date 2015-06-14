@@ -1,6 +1,6 @@
-W repozytorium znajduja sie czesciowe pliki projektu aplikacji CityMiners zgloszonej do konkursu Dane po waszawsku:
+W repozytorium znajduja sie czesciowe pliki projektu aplikacji CityMiners zgloszonej do konkursu Dane po waszawsku: https://konkurs.danepowarszawsku.pl/pl/projekt/backsideart
 
-https://konkurs.danepowarszawsku.pl/pl/projekt/backsideart
+**Aplikacja CityMiners wykorzystuje jedynie technologie w peni otwarte, korzysta z otwartych danych miejskich ( m.in. do sledzenie dostepnosci wifi oraz analizy tras na podstawie sieci przystankow komunikacji miejskiej ). Jest takze projekt w pelni otwarty, ltorego kompletny kod zrodlowy zostanie udostepniony na zasadach Creative Commons ( https://creativecommons.org/licenses/by-nc-sa/3.0/pl/legalcode )**
 
 Aplikacja oparta jest o nastpujacy stos technologiczny:
 
