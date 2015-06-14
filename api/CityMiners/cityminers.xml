@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cityminers" default="all">
+  
+  
+  <property file="cityminers.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value="-source 7"/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.orig/**"/>
+    <exclude name="**/*.o/**"/>
+    <exclude name="**/*.obj/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/access-bridge.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4/concurrentlinkedhashmap-lru-1.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.googlecode.json-simple:json-simple:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.xml.bind:jaxb-impl:2.2.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.4/jaxb-impl-2.2.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.vividsolutions:jts:1.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/vividsolutions/jts/1.13/jts-1.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-codec:commons-codec:1.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.6/commons-codec-1.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-io:commons-io:2.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.1/commons-io-2.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-logging:commons-logging:1.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-pool:commons-pool:1.5.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_it.geosolutions.imageio-ext:imageio-ext-tiff:1.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/it/geosolutions/imageio-ext/imageio-ext-tiff/1.1.7/imageio-ext-tiff-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_it.geosolutions.imageio-ext:imageio-ext-utilities:1.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/it/geosolutions/imageio-ext/imageio-ext-utilities/1.1.7/imageio-ext-utilities-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_java3d:vecmath:1.3.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/java3d/vecmath/1.3.2/vecmath-1.3.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.activation:activation:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.mail:mail:1.4.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/mail/mail/1.4.4/mail-1.4.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.media:jai_codec:1.1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/media/jai_codec/1.1.3/jai_codec-1.1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.media:jai_core:1.1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/media/jai_core/1.1.3/jai_core-1.1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.media:jai_imageio:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/media/jai_imageio/1.1/jai_imageio-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.xml.bind:jaxb-api:2.2.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.3/jaxb-api-2.2.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.xml.stream:stax-api:1.0-2.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+  </path>
+  
+  <path id="library.maven:_jboss.jbossws:jboss-jaxrpc:2.0.3.ga.classpath">
+    <pathelement location="${path.variable.maven_repository}/jboss/jbossws/jboss-jaxrpc/2.0.3.GA/jboss-jaxrpc-2.0.3.GA.jar"/>
+  </path>
+  
+  <path id="library.maven:_jdom:jdom:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/jdom/jdom/1.0/jdom-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_jgridshift:jgridshift:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/jgridshift/jgridshift/1.0/jgridshift-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.dev.jsr-275:jsr-275:1.0-beta-2.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jsr-275/jsr-275/1.0-beta-2/jsr-275-1.0-beta-2.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.jcip:jcip-annotations:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sf.opencsv:opencsv:2.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.httpcomponents:httpclient:4.2.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.2.6/httpclient-4.2.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.httpcomponents:httpcore:4.2.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.2.5/httpcore-4.2.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.james:apache-mime4j:0.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/james/apache-mime4j/0.6/apache-mime4j-0.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.lucene:lucene-core:3.6.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/lucene/lucene-core/3.6.2/lucene-core-3.6.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.jackson:jackson-core-asl:1.9.9.redhat-3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.9.redhat-3/jackson-core-asl-1.9.9.redhat-3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.jackson:jackson-mapper-asl:1.9.9.redhat-3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.9.redhat-3/jackson-mapper-asl-1.9.9.redhat-3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-api:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-api/9.2/gt-api-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-coverage:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-coverage/9.2/gt-coverage-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-cql:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-cql/9.2/gt-cql-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-data:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-data/9.2/gt-data-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-main:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-main/9.2/gt-main-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-metadata:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-metadata/9.2/gt-metadata-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-opengis:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-opengis/9.2/gt-opengis-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-process:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-process/9.2/gt-process-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-referencing:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-referencing/9.2/gt-referencing-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-render:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-render/9.2/gt-render-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.geotools:gt-shapefile:9.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/geotools/gt-shapefile/9.2/gt-shapefile-9.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jaitools:jt-utils:1.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jaitools/jt-utils/1.3.0/jt-utils-1.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jaitools:jt-zonalstats:1.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jaitools/jt-zonalstats/1.3.0/jt-zonalstats-1.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.ejb3:jboss-ejb3-api:3.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/ejb3/jboss-ejb3-api/3.1.0/jboss-ejb3-api-3.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.javaee:jboss-transaction-api:1.0.1.cr2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/javaee/jboss-transaction-api/1.0.1.CR2/jboss-transaction-api-1.0.1.CR2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.logging:jboss-logging:3.1.4.ga-redhat-1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.4.GA-redhat-1/jboss-logging-3.1.4.GA-redhat-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.resteasy:jaxrs-api:3.0.9.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/resteasy/jaxrs-api/3.0.9.Final/jaxrs-api-3.0.9.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.resteasy:resteasy-jaxb-provider:2.3.10.final-redhat-1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/resteasy/resteasy-jaxb-provider/2.3.10.Final-redhat-1/resteasy-jaxb-provider-2.3.10.Final-redhat-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.resteasy:resteasy-jaxrs:3.0.9.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/resteasy/resteasy-jaxrs/3.0.9.Final/resteasy-jaxrs-3.0.9.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.resteasy:resteasy-multipart-provider:2.3.10.final-redhat-1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/resteasy/resteasy-multipart-provider/2.3.10.Final-redhat-1/resteasy-multipart-provider-2.3.10.Final-redhat-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.spec.javax.annotation:jboss-annotations-api_1.1_spec:1.0.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/annotation/jboss-annotations-api_1.1_spec/1.0.1.Final/jboss-annotations-api_1.1_spec-1.0.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-consistency-check:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-consistency-check/2.2.2/neo4j-consistency-check-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-csv:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-csv/2.2.2/neo4j-csv-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-cypher-compiler-1.9:2.0.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-1.9/2.0.4/neo4j-cypher-compiler-1.9-2.0.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-cypher-compiler-2.0:2.0.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-2.0/2.0.4/neo4j-cypher-compiler-2.0-2.0.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-cypher-compiler-2.1:2.1.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-2.1/2.1.8/neo4j-cypher-compiler-2.1-2.1.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-cypher-compiler-2.2:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-2.2/2.2.2/neo4j-cypher-compiler-2.2-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-cypher:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-cypher/2.2.2/neo4j-cypher-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-graph-algo:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-graph-algo/2.2.2/neo4j-graph-algo-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-graph-matching:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-graph-matching/2.2.2/neo4j-graph-matching-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-io:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-io/2.2.2/neo4j-io-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-jmx:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-jmx/2.2.2/neo4j-jmx-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-kernel:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-kernel/2.2.2/neo4j-kernel-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-lucene-index:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-lucene-index/2.2.2/neo4j-lucene-index-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-primitive-collections:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-primitive-collections/2.2.2/neo4j-primitive-collections-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-spatial:0.14-neo4j-2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-spatial/0.14-neo4j-2.2.2/neo4j-spatial-0.14-neo4j-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-udc:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-udc/2.2.2/neo4j-udc-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j-unsafe:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j-unsafe/2.2.2/neo4j-unsafe-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.neo4j:neo4j:2.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/neo4j/neo4j/2.2.2/neo4j-2.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.parboiled:parboiled-core:1.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/parboiled/parboiled-core/1.1.7/parboiled-core-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.parboiled:parboiled-scala_2.10:1.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/parboiled/parboiled-scala_2.10/1.1.7/parboiled-scala_2.10-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.scala-lang:scala-library:2.10.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/scala-lang/scala-library/2.10.5/scala-library-2.10.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.scala-lang:scala-reflect:2.10.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/scala-lang/scala-reflect/2.10.5/scala-reflect-2.10.5.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_cityminers.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.cityminers, clean.artifact.cityminers:war_exploded" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.cityminers" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.cityminers:war" value="${basedir}/target"/>
+    <property name="artifact.output.cityminers:war_exploded" value="${basedir}/target/CityMiners"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.CityMiners.war" value="${artifacts.temp.dir}/CityMiners.war"/>
+  </target>
+  
+  <target name="clean.artifact.cityminers:war_exploded" description="clean CityMiners:war exploded artifact output">
+    <delete dir="${artifact.output.cityminers:war_exploded}"/>
+  </target>
+  
+  <target name="artifact.cityminers:war" depends="init.artifacts, artifact.cityminers:war_exploded" description="Build &#39;CityMiners:war&#39; artifact">
+    <property name="artifact.temp.output.cityminers:war" value="${artifacts.temp.dir}/CityMiners_war"/>
+    <mkdir dir="${artifact.temp.output.cityminers:war}"/>
+    <zip destfile="${temp.jar.path.CityMiners.war}">
+      <zipfileset dir="${artifact.output.cityminers:war_exploded}"/>
+    </zip>
+    <copy file="${temp.jar.path.CityMiners.war}" tofile="${artifact.temp.output.cityminers:war}/CityMiners.war"/>
+  </target>
+  
+  <target name="artifact.cityminers:war_exploded" depends="init.artifacts, compile.module.cityminers" description="Build &#39;CityMiners:war exploded&#39; artifact">
+    <mkdir dir="${artifact.output.cityminers:war_exploded}"/>
+    <mkdir dir="${artifact.output.cityminers:war_exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.cityminers:war_exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.cityminers:war_exploded}/WEB-INF/classes">
+      <fileset dir="${cityminers.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.output.cityminers:war_exploded}/WEB-INF/lib"/>
+    <copy file="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/activation-1.1.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j/2.2.2/neo4j-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-kernel/2.2.2/neo4j-kernel-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-kernel-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-primitive-collections/2.2.2/neo4j-primitive-collections-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-primitive-collections-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-unsafe/2.2.2/neo4j-unsafe-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-unsafe-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-io/2.2.2/neo4j-io-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-io-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-csv/2.2.2/neo4j-csv-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-csv-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-lucene-index/2.2.2/neo4j-lucene-index-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-lucene-index-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/apache/lucene/lucene-core/3.6.2/lucene-core-3.6.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/lucene-core-3.6.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-graph-algo/2.2.2/neo4j-graph-algo-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-graph-algo-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-udc/2.2.2/neo4j-udc-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-udc-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-graph-matching/2.2.2/neo4j-graph-matching-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-graph-matching-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-cypher/2.2.2/neo4j-cypher-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-cypher-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/scala-lang/scala-library/2.10.5/scala-library-2.10.5.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/scala-library-2.10.5.jar"/>
+    <copy file="${path.variable.maven_repository}/org/scala-lang/scala-reflect/2.10.5/scala-reflect-2.10.5.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/scala-reflect-2.10.5.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-1.9/2.0.4/neo4j-cypher-compiler-1.9-2.0.4.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-cypher-compiler-1.9-2.0.4.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-2.0/2.0.4/neo4j-cypher-compiler-2.0-2.0.4.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-cypher-compiler-2.0-2.0.4.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-2.1/2.1.8/neo4j-cypher-compiler-2.1-2.1.8.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-cypher-compiler-2.1-2.1.8.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-cypher-compiler-2.2/2.2.2/neo4j-cypher-compiler-2.2-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-cypher-compiler-2.2-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/parboiled/parboiled-scala_2.10/1.1.7/parboiled-scala_2.10-1.1.7.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/parboiled-scala_2.10-1.1.7.jar"/>
+    <copy file="${path.variable.maven_repository}/org/parboiled/parboiled-core/1.1.7/parboiled-core-1.1.7.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/parboiled-core-1.1.7.jar"/>
+    <copy file="${path.variable.maven_repository}/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/opencsv-2.3.jar"/>
+    <copy file="${path.variable.maven_repository}/com/googlecode/concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4/concurrentlinkedhashmap-lru-1.4.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/concurrentlinkedhashmap-lru-1.4.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-jmx/2.2.2/neo4j-jmx-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-jmx-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-consistency-check/2.2.2/neo4j-consistency-check-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-consistency-check-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/neo4j/neo4j-spatial/0.14-neo4j-2.2.2/neo4j-spatial-0.14-neo4j-2.2.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/neo4j-spatial-0.14-neo4j-2.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-main/9.2/gt-main-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-main-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-api/9.2/gt-api-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-api-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/com/vividsolutions/jts/1.13/jts-1.13.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jts-1.13.jar"/>
+    <copy file="${path.variable.maven_repository}/jdom/jdom/1.0/jdom-1.0.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jdom-1.0.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/media/jai_core/1.1.3/jai_core-1.1.3.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jai_core-1.1.3.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-shapefile/9.2/gt-shapefile-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-shapefile-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-data/9.2/gt-data-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-data-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-referencing/9.2/gt-referencing-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-referencing-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/java3d/vecmath/1.3.2/vecmath-1.3.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/vecmath-1.3.2.jar"/>
+    <copy file="${path.variable.maven_repository}/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/commons-pool-1.5.4.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-metadata/9.2/gt-metadata-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-metadata-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-opengis/9.2/gt-opengis-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-opengis-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/net/java/dev/jsr-275/jsr-275/1.0-beta-2/jsr-275-1.0-beta-2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jsr-275-1.0-beta-2.jar"/>
+    <copy file="${path.variable.maven_repository}/jgridshift/jgridshift/1.0/jgridshift-1.0.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jgridshift-1.0.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-process/9.2/gt-process-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-process-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-coverage/9.2/gt-coverage-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-coverage-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/it/geosolutions/imageio-ext/imageio-ext-tiff/1.1.7/imageio-ext-tiff-1.1.7.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/imageio-ext-tiff-1.1.7.jar"/>
+    <copy file="${path.variable.maven_repository}/it/geosolutions/imageio-ext/imageio-ext-utilities/1.1.7/imageio-ext-utilities-1.1.7.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/imageio-ext-utilities-1.1.7.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/media/jai_codec/1.1.3/jai_codec-1.1.3.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jai_codec-1.1.3.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jaitools/jt-zonalstats/1.3.0/jt-zonalstats-1.3.0.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jt-zonalstats-1.3.0.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jaitools/jt-utils/1.3.0/jt-utils-1.3.0.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jt-utils-1.3.0.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-cql/9.2/gt-cql-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-cql-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/media/jai_imageio/1.1/jai_imageio-1.1.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jai_imageio-1.1.jar"/>
+    <copy file="${path.variable.maven_repository}/org/geotools/gt-render/9.2/gt-render-9.2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/gt-render-9.2.jar"/>
+    <copy file="${path.variable.maven_repository}/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/json-simple-1.1.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jboss/resteasy/resteasy-multipart-provider/2.3.10.Final-redhat-1/resteasy-multipart-provider-2.3.10.Final-redhat-1.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/resteasy-multipart-provider-2.3.10.Final-redhat-1.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jboss/resteasy/resteasy-jaxb-provider/2.3.10.Final-redhat-1/resteasy-jaxb-provider-2.3.10.Final-redhat-1.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/resteasy-jaxb-provider-2.3.10.Final-redhat-1.jar"/>
+    <copy file="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.4/jaxb-impl-2.2.4.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jaxb-impl-2.2.4.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.3/jaxb-api-2.2.3.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jaxb-api-2.2.3.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/stax-api-1.0-2.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/mail/mail/1.4.4/mail-1.4.4.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/mail-1.4.4.jar"/>
+    <copy file="${path.variable.maven_repository}/org/apache/james/apache-mime4j/0.6/apache-mime4j-0.6.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/apache-mime4j-0.6.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.4.GA-redhat-1/jboss-logging-3.1.4.GA-redhat-1.jar" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/lib/jboss-logging-3.1.4.GA-redhat-1.jar"/>
+    <mkdir dir="${artifact.output.cityminers:war_exploded}/META-INF"/>
+    <copy file="${basedir}/target/MANIFEST.MF" tofile="${artifact.output.cityminers:war_exploded}/META-INF/MANIFEST.MF"/>
+    <copy todir="${artifact.output.cityminers:war_exploded}">
+      <fileset dir="${basedir}/src/main/webapp"/>
+    </copy>
+    <mkdir dir="${artifact.output.cityminers:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/src/main/webapp/WEB-INF/jboss-web.xml" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/jboss-web.xml"/>
+    <mkdir dir="${artifact.output.cityminers:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/src/main/webapp/WEB-INF/web.xml" tofile="${artifact.output.cityminers:war_exploded}/WEB-INF/web.xml"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.cityminers:war, artifact.cityminers:war_exploded" description="Build all artifacts">
+    <mkdir dir="${artifact.output.cityminers:war}"/>
+    <copy todir="${artifact.output.cityminers:war}">
+      <fileset dir="${artifact.temp.output.cityminers:war}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
